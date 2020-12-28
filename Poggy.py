@@ -59,6 +59,11 @@ async def fat(ctx):
     await ctx.send('<@271347480291966977>')#<@310230674483183630>
 
 
+@client.command(help = 'Github Link')
+async def github(ctx):
+    await ctx.send('https://github.com/darklink2458/Poggy')
+
+
 @client.command(help = 'Produces a quote that may inspire your entire server!')
 async def inspire(ctx):
     response = requests.get("https://zenquotes.io/api/random")
