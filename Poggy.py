@@ -22,7 +22,7 @@ async def on_ready():
 
 @client.command(help = 'This command pings poggy and he will tell you how long it takes to get to him.')
 async def ping(ctx):
-    await ctx.send(f'Pong! {client.latency * 1000}ms')
+    await ctx.send(f'Pong! {round(client.latency * 1000, 2)}ms')
 
 
 @client.command(help = "Rock Paper Scissors. Write one after your command to play.")
@@ -133,8 +133,8 @@ async def _8ball(ctx, *, question):
     await ctx.send(f'Question: {question}\nAnswer: {random.choice(responses)}')
 
 
-@client.command(aliases=['moon'], help = 'Gives the phase of the moon as would be seen from Washington at the current time.')
-async def moonforhenry(ctx):
+@client.command(aliases=['moonforhenry'], help = 'Gives the phase of the moon as would be seen from Washington at the current time.')
+async def moon(ctx):
     mi = pylunar.MoonInfo((47, 62, 49), (-112, 52, 10))
     mi.update(datetime.now())
     await ctx.send('Moon Phase: ' + mi.phase_name().replace('_',' ') +
