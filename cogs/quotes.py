@@ -48,7 +48,7 @@ class Quotes(commands.Cog):
         await ctx.send(myline)
 
 
-    @commands.command(aliases=['getQuote'], help = 'Grabs a random quote from the server quote list')
+    @commands.command(aliases=['getQuote'], help = 'Grabs the specified quote from the server quote list')
     async def getquote(self, ctx, input):
         file = open('quotes.json', 'r')
         ServerQuotes = json.load(file)
@@ -61,6 +61,24 @@ class Quotes(commands.Cog):
         else:
             myline = ServerQuotes[server]['quotes'][input]
             await ctx.send(f'Quote {input}: {myline}')
+
+    @commands.command(aliases=['getQuoteList', 'quotelist'], help = 'Outputs a text file with all the quotes from this server.')
+    async def quoteList(self, ctx):
+        file = open('quotes.json', 'r')
+        ServerQuotes = json.load(file)
+        file.close()
+        server = ctx.message.guild.name
+        content = ''
+
+        file = open(f'{server}.txt', 'w')
+        for quote in ServerQuotes[server]['quotes']:
+            content = content + ServerQuotes[server]['quotes'][quote] + '\n'
+        file.write(content)
+        file.close()
+
+        file = open(f'{server}.txt', 'rb')
+        await ctx.send(file = discord.File(file))
+        file.close()
 
 def setup(client):
     client.add_cog(Quotes(client))
