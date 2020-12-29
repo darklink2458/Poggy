@@ -1,6 +1,8 @@
 from flask import Flask
 from threading import Thread
 
+#Keeps Poggy alive on repl.it by allowing to be pinged directly
+
 app = Flask('')
 
 @app.route('/')
