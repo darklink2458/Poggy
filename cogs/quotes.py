@@ -1,6 +1,7 @@
 import discord
 import random
 import json
+import os
 from discord.ext import commands,tasks
 
 class Quotes(commands.Cog):
@@ -62,7 +63,7 @@ class Quotes(commands.Cog):
             myline = ServerQuotes[server]['quotes'][input]
             await ctx.send(f'Quote {input}: {myline}')
 
-    @commands.command(aliases=['getQuoteList', 'quotelist'], help = 'Outputs a text file with all the quotes from this server.')
+    @commands.command(aliases=['getQuoteList', 'quotelist'], help = 'Grabs the server quote list')
     async def quoteList(self, ctx):
         file = open('quotes.json', 'r')
         ServerQuotes = json.load(file)
@@ -79,6 +80,7 @@ class Quotes(commands.Cog):
         file = open(f'{server}.txt', 'rb')
         await ctx.send(file = discord.File(file))
         file.close()
+        os.remove(f'{server}.txt')
 
 def setup(client):
     client.add_cog(Quotes(client))
