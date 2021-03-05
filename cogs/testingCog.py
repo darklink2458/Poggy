@@ -11,5 +11,10 @@ class TestingCog(commands.Cog):
     async def on_ready(self):
         print('TestingCog Loaded!')
 
+    @commands.command()
+    async def poop(self, ctx):
+      await ctx.send('ctx.message.server')
+
+
 def setup(client):
     client.add_cog(TestingCog(client))

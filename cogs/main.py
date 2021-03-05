@@ -39,6 +39,14 @@ class Main(commands.Cog):
     async def botGuy(self, ctx):
         await ctx.send('<@271347480291966977>')
 
+    @commands.command(help = "makes a new face")
+    async def face(self, ctx):
+      response = requests.get("https://thispersondoesnotexist.com/image")
+      file = open("face.jpeg", 'wb')
+      file.write(response.content)
+      file.close()
+      await ctx.send(file = discord.File("face.jpeg"))
+
     @commands.command(help = 'insult')
     async def fat(self, ctx):
         await ctx.send('<@271347480291966977>')#<@310230674483183630>
