@@ -97,6 +97,60 @@ class Main(commands.Cog):
             member = random.choice(ctx.message.guild.members).mention
         await ctx.send(f'The Random person is: ' + member)
 
+    @commands.command(help = 'Roll a virtual die using the following format: ".roll 5D10+7"')
+    async def roll(self, ctx, *, string2):
+      #take string
+      string = string2
+      adding = False
+      subbing = False
+
+      string = string.upper()
+      #string.strip()
+
+      #check if string contains 'd' or 'D'
+      if 'D' not in string:
+        #user error
+        print('Call this function by writing something like what is in the following quotes ".roll 5 D 10 + 7" or ".roll 5D10+7"')
+
+      #split string on 'd' or 'D'
+      str_list = string.split('D')
+      mult_val = int(str_list[0])
+      second_string = str_list[1]
+
+      #check if there is a '+' or '-'
+      #split string then on '+' or '-'
+
+      if '+' in string:
+        #get the add Value
+        adding = True
+        str_list = second_string.split('+')
+        die_val = int(str_list[0])
+        mod_val = int(str_list[1])
+
+
+
+      elif '-' in string:
+        #get subtract value
+        Subbing = True
+        str_list = second_string.split('-')
+        die_val = int(str_list[0])
+        mod_val = int(str_list[1])
+
+      else:
+        #just get the second number
+        die_val = int(second_string)
+
+      final_val = 0
+      for i in range(mult_val):
+        final_val += random.randint(1, die_val)
+
+
+      if subbing:
+        final_val -= mod_val
+      elif adding:
+        final_val += mod_val
+      await ctx.send(final_val)
+
     @commands.command(help = "Rock Paper Scissors. Write one after your command to play.")
     async def rps(self, ctx, player_move):
           selection = player_move.lower()
@@ -124,6 +178,10 @@ class Main(commands.Cog):
           else:
               result = 'Please choose Rock, Paper, or Scissors'
           await ctx.send(result)
+
+    @commands.command(help = 'Check out Poggy on Twitter')
+    async def twitter(self, ctx):
+        await ctx.send('https://twitter.com/PoggyTheClown')
 
     @commands.command(help = 'Turns any serious input into the ramblings of child.')
     async def uwu(self, ctx, *, string2):
